@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             questions.setVisibility(View.GONE);
             disapprove.setVisibility(View.VISIBLE);
         }
-        // Delaying
+        // Delaying before calling resetview() so the "right" or "wrong" image is visible for 2 seconds
         new CountDownTimer(1000, 1000) {
             public void onTick(long millisUntilFinished) {
             }
@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
         }.start();
         // Adds one ot the question number and calls the questionCreation to post the next question
-        //Toast.makeText(this, "Score is: " + score + "pos is " + position, Toast.LENGTH_SHORT).show();
         view1.clearCheck();
         return ;
     }
@@ -101,9 +100,12 @@ public class MainActivity extends AppCompatActivity {
         return;
     }
     public void changingQuestion(){
+        //Assign views
         RadioGroup view1 = (RadioGroup)findViewById(R.id.radio1);
         View questions = findViewById(R.id.questions_view);
+        //unchecks the radioGroup
         view1.clearCheck();
+        // Adds one ot the question number and calls the questionCreation to post the next question
         questionNum = questionNum + 1;
         createQuestion(ask[questionNum][0],ask[questionNum][1],ask[questionNum][2],ask[questionNum][3],ask[questionNum][4],ask[questionNum][5]);
         questions.setVisibility(View.VISIBLE);
@@ -125,18 +127,18 @@ public class MainActivity extends AppCompatActivity {
         view5.setText(question);
         return ;
     }
-    // A method to call at start to create the questions/answers' array
+    // A method to call at start to construct the questions/answers' array
     // The first element is the question,the last is the right answer and the rest are the possible choices.
     public void arrayCreate(){
-        ask[0] = new String[]{"Whats the capital of Greece","Nicosia","Salonica","Patra","Athens","Athens"};
+        ask[0] = new String[]{"Whats the capital of Greece","Nicosia","Paris","Vilnius","Athens","Athens"};
         ask[1] = new String[]{"Whats the capital of Ukraine","Bucharest","Kyiv","Dnipro","Donetsk","Kyiv"};
         ask[2] = new String[]{"Whats the capital of Romania","Bucharest","Kyiv","Brussels","Budapest","Bucharest"};
-        ask[3] = new String[]{"Whats the capital of Hungary","Bucharest","Kyiv","Budapest","Donetsk","Budapest"};
-        ask[4] = new String[]{"Whats the capital of France","Bucharest","Kyiv","Paris","Donetsk","Paris"};
-        ask[5] = new String[]{"Whats the capital of Austria","Vienna","Kyiv","Dnipro","Donetsk","Vienna"};
-        ask[6] = new String[]{"Whats the capital of Spain","Bucharest","Kyiv","Madrid","Donetsk","Madrid"};
-        ask[7] = new String[]{"Whats the capital of Croatia","Bucharest","Kyiv","Zagreb","Donetsk","Zagreb"};
-        ask[8] = new String[]{"Whats the capital of Lithuania","Bucharest","Kyiv","Dnipro","Vilnius","Vilnius"};
-        ask[9] = new String[]{"Whats the capital of Switcherland","Bern","Kyiv","Dnipro","Donetsk","Bern"};
+        ask[3] = new String[]{"Whats the capital of Hungary","Paris","Kyiv","Budapest","Donetsk","Budapest"};
+        ask[4] = new String[]{"Whats the capital of France","Madrid","Zagreb","Paris","Bern","Paris"};
+        ask[5] = new String[]{"Whats the capital of Austria","Vienna","Budapest","Dnipro","Paris","Vienna"};
+        ask[6] = new String[]{"Whats the capital of Spain","Bucharest","Bern","Madrid","Donetsk","Madrid"};
+        ask[7] = new String[]{"Whats the capital of Croatia","Paris","Kyiv","Zagreb","Donetsk","Zagreb"};
+        ask[8] = new String[]{"Whats the capital of Lithuania","Bucharest","Zagreb","Dnipro","Vilnius","Vilnius"};
+        ask[9] = new String[]{"Whats the capital of Switcherland","Bern","Paris","Vilnius","Donetsk","Bern"};
     }
 }
