@@ -27,31 +27,53 @@ public class MainActivity extends AppCompatActivity {
     int score = 0;
     String[][] ask = new String[10][6];
     int questionNum = 0;
+    //Initiating all views so they can be assigned once for the entire scope
+    RadioGroup radioGroup;
+    ImageView approve;
+    ImageView disapprove;
+    View questionView;
+    TextView questionText;
+    View screenWelcome;
+    TextView verdictText;
+    View verdictView;
+    RadioButton radioButton1;
+    RadioButton radioButton2;
+    RadioButton radioButton3;
+    RadioButton radioButton4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        assignViews();
         arrayCreate();
+    }
+    //We assign the views,just once, at startup
+    public void assignViews(){
+        radioGroup = (RadioGroup)findViewById(R.id.radio1);
+        approve = (ImageView)findViewById(R.id.approve);
+        disapprove = (ImageView)findViewById(R.id.disapprove);
+        questionView = findViewById(R.id.questions_view);
+        questionText = (TextView) findViewById(R.id.question_textView);
+        screenWelcome = findViewById(R.id.screen_welcome);
+        verdictText = (TextView)findViewById(verdict_text);
+        verdictView = findViewById(R.id.verdict_view);
+        radioButton1 = (RadioButton)findViewById(R.id.radioButton1);
+        radioButton2 = (RadioButton)findViewById(R.id.radioButton2);
+        radioButton3 = (RadioButton)findViewById(R.id.radioButton3);
+        radioButton4 = (RadioButton)findViewById(R.id.radioButton4);
     }
     public void start(View view){
         // Creates the first question
         createQuestion(ask[questionNum][0],ask[questionNum][1],ask[questionNum][2],ask[questionNum][3],ask[questionNum][4],ask[questionNum][5]);
         // Changes visibility to the 2 layouts so the first disappears and the second(with the questions) appears.
-        View view1 = findViewById(R.id.screen_welcome);
-        view1.setVisibility(View.GONE);
-        View view2 = findViewById(R.id.questions_view);
-        view2.setVisibility(View.VISIBLE);
+        screenWelcome.setVisibility(View.GONE);
+        questionView.setVisibility(View.VISIBLE);
     }
     public void nextQuestion(View view) throws InterruptedException {
-        // Assigns the radioGroup to View1 to get the id and then get the selected button index
-        RadioGroup view1 = (RadioGroup)findViewById(R.id.radio1);
-        int radioButtonID = view1.getCheckedRadioButtonId();
-        View radioButton = view1.findViewById(radioButtonID);
-        int position = view1.indexOfChild(radioButton);
-        // Assigns views to right/wrong prompt depending on the answer.
-        ImageView approve = (ImageView)findViewById(R.id.approve);
-        ImageView disapprove = (ImageView)findViewById(R.id.disapprove);
-        View questions = findViewById(R.id.questions_view);
+        // Get the id and then get the selected button index
+        int radioButtonID = radioGroup.getCheckedRadioButtonId();
+        View radioButton = radioGroup.findViewById(radioButtonID);
+        int position = radioGroup.indexOfChild(radioButton);
         // If nothing is checked returns an error Toast and loops until a choice is given
         if (position==-1) {
             Toast.makeText(this, "Choose one please", Toast.LENGTH_SHORT).show();
@@ -60,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
         // Checks if the choice made is the right one and gives 10 points if it is
         if (ask[questionNum][position + 1].equals(ask[questionNum][5])) {
             score = score + 10;
-            questions.setVisibility(View.GONE);
+            questionView.setVisibility(View.GONE);
             approve.setVisibility(View.VISIBLE);
         }else{
-            questions.setVisibility(View.GONE);
+            questionView.setVisibility(View.GONE);
             disapprove.setVisibility(View.VISIBLE);
         }
         // Delaying before calling resetview() so the "right" or "wrong" image is visible for 2 seconds
@@ -76,55 +98,41 @@ public class MainActivity extends AppCompatActivity {
 
         }.start();
         // Adds one ot the question number and calls the questionCreation to post the next question
-        view1.clearCheck();
+        radioGroup.clearCheck();
         return ;
     }
     public void resetview(){
-        ImageView approve = (ImageView)findViewById(R.id.approve);
-        ImageView disapprove = (ImageView)findViewById(R.id.disapprove);
         approve.setVisibility(View.INVISIBLE);
         disapprove.setVisibility(View.INVISIBLE);
         if (questionNum < 9) {
             changingQuestion();
         }else{
-            TextView textView = (TextView)findViewById(verdict_text);
             if (score > 50){
-                textView.setText("Congratulations you did great" + "\nYour final score is: " + score);
+                verdictText.setText("Congratulations you did great" + "\nYour final score is: " + score);
             }else{
-                textView.setText("You can do better" + "\nYour final score is: " + score);
+                verdictText.setText("You can do better" + "\nYour final score is: " + score);
             }
-            View view = findViewById(R.id.verdict_view);
-            view.setVisibility(View.VISIBLE);
-
+            verdictView.setVisibility(View.VISIBLE);
         }
         return;
     }
     public void changingQuestion(){
-        //Assign views
-        RadioGroup view1 = (RadioGroup)findViewById(R.id.radio1);
-        View questions = findViewById(R.id.questions_view);
         //unchecks the radioGroup
-        view1.clearCheck();
+        radioGroup.clearCheck();
         // Adds one ot the question number and calls the questionCreation to post the next question
         questionNum = questionNum + 1;
         createQuestion(ask[questionNum][0],ask[questionNum][1],ask[questionNum][2],ask[questionNum][3],ask[questionNum][4],ask[questionNum][5]);
-        questions.setVisibility(View.VISIBLE);
+        questionView.setVisibility(View.VISIBLE);
         return ;
     }
     // The method that changes the textViews for every question
     public void createQuestion(String question, String answer_1, String answer_2, String answer_3, String answer_4,String right_answer){
-        // We assign the views to the radioButtons and the text of the question
-        RadioButton view1 = (RadioButton)findViewById(R.id.radioButton1);
-        RadioButton view2 = (RadioButton)findViewById(R.id.radioButton2);
-        RadioButton view3 = (RadioButton)findViewById(R.id.radioButton3);
-        RadioButton view4 = (RadioButton)findViewById(R.id.radioButton4);
-        TextView view5 = (TextView) findViewById(R.id.question_textView);
-        // Then we set the text to the desired one
-        view1.setText(answer_1);
-        view2.setText(answer_2);
-        view3.setText(answer_3);
-        view4.setText(answer_4);
-        view5.setText(question);
+        // We set the text to the desired one
+        radioButton1.setText(answer_1);
+        radioButton2.setText(answer_2);
+        radioButton3.setText(answer_3);
+        radioButton4.setText(answer_4);
+        questionText.setText(question);
         return ;
     }
     // A method to call at start to construct the questions/answers' array
