@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    tools:context="com.example.panagiotis.geographyquiz.MainActivity"
+    android:layout_height="match_parent"
+    android:fillViewport="false">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/verdict_view"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/verdict_text"
+                android:textSize="24sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            app:srcCompat="@drawable/approve"
+            android:id="@+id/approve"
+            android:elevation="2dp"
+            android:layout_alignParentBottom="false"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            android:layout_height="300dp"
+            android:layout_marginBottom="300dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            app:srcCompat="@drawable/disapprove"
+            android:id="@+id/disapprove"
+            android:elevation="2dp"
+            android:layout_alignParentBottom="false"
+            android:visibility="gone"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            android:layout_height="300dp"
+            android:layout_marginBottom="300dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="false" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/questions_view"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/europe_22"
+                android:id="@+id/imageView4"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/question_textView"
+                android:layout_alignParentBottom="false"
+                android:layout_below="@+id/imageView4"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:textStyle="normal|bold"
+                android:textAllCaps="false"
+                android:layout_margin="12dp" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/question_textView"
+                android:paddingLeft="16dp"
+                android:id="@+id/radio1">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioButton1"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioButton2"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioButton3"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioButton4"
+                    android:layout_weight="1" />
+
+            </RadioGroup>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/radio1"
+                android:layout_below="@+id/question_textView"
+                android:layout_marginTop="20dp">
+
+                <Button
+                    android:text="OK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ok"
+                    android:layout_centerHorizontal="false"
+                    android:layout_centerVertical="false"
+                    android:layout_alignWithParentIfMissing="false"
+                    android:layout_centerInParent="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="normal|bold"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/black"
+                    android:onClick="nextQuestion"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/screen_welcome"
+            android:visibility="gone"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/europe_22"
+                android:id="@+id/imageView3"
+                android:cropToPadding="false"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:text="This is Europe.Europe has some questions for you.Can you answer them?"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Welcome"
+                android:textSize="16sp"
+                android:layout_below="@+id/imageView3"
+                android:layout_margin="26dp" />
+
+            <Button
+                android:text="Start, I feel ready!"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:layout_centerVertical="false"
+                android:layout_centerInParent="false"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentBottom="false"
+                android:layout_below="@+id/Welcome"
+                android:onClick="start"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>
